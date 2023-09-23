@@ -1,4 +1,4 @@
-use errors::IndyCryptoError;
+use crate::errors::IndyCryptoError;
 
 use amcl::big::BIG;
 
@@ -655,8 +655,8 @@ impl<'a> Deserialize<'a> for Pair {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use errors::ToErrorCode;
-    use errors::ErrorCode;
+    use crate::errors::ToErrorCode;
+    use crate::errors::ErrorCode;
 
     #[test]
     fn group_order_element_new_from_seed_works_for_invalid_seed_len() {

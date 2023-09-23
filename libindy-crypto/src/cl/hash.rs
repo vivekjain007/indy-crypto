@@ -1,5 +1,5 @@
-use bn::BigNumber;
-use errors::IndyCryptoError;
+use crate::bn::BigNumber;
+use crate::errors::IndyCryptoError;
 
 pub fn get_hash_as_int(nums: &Vec<Vec<u8>>) -> Result<BigNumber, IndyCryptoError> {
     trace!("Helpers::get_hash_as_int: >>> nums: {:?}", nums);

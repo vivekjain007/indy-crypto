@@ -1,7 +1,7 @@
-use cl::verifier::*;
-use cl::*;
-use errors::ToErrorCode;
-use errors::ErrorCode;
+use crate::cl::verifier::*;
+use crate::cl::*;
+use crate::errors::ToErrorCode;
+use crate::errors::ErrorCode;
 
 use std::os::raw::c_void;
 
@@ -122,7 +122,7 @@ mod tests {
     use super::*;
 
     use std::ptr;
-    use ffi::cl::mocks::*;
+    use crate::ffi::cl::mocks::*;
     use super::mocks::*;
     use super::super::issuer::mocks::*;
     use super::super::prover::mocks::*;

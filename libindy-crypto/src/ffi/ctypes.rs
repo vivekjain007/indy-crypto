@@ -59,7 +59,7 @@ macro_rules! check_useful_c_reference {
             return $err
         }
 
-        let $ptr: &$type = unsafe { &*($ptr as *const $type) };;
+        let $ptr: &$type = unsafe { &*($ptr as *const $type) };
     }
 }
 
@@ -69,7 +69,7 @@ macro_rules! check_useful_mut_c_reference {
             return $err
         }
 
-        let $ptr: &mut $type = unsafe { &mut *($ptr as *mut $type) };;
+        let $ptr: &mut $type = unsafe { &mut *($ptr as *mut $type) };
     }
 }
 

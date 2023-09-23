@@ -1,8 +1,8 @@
-use cl::prover::*;
-use cl::*;
-use errors::ToErrorCode;
-use errors::ErrorCode;
-use ffi::ctypes::CTypesUtils;
+use crate::cl::prover::*;
+use crate::cl::*;
+use crate::errors::ToErrorCode;
+use crate::errors::ErrorCode;
+use crate::ffi::ctypes::CTypesUtils;
 
 use serde_json;
 use std::os::raw::c_void;
@@ -113,7 +113,7 @@ pub extern fn indy_crypto_cl_master_secret_free(master_secret: *const c_void) ->
 
     check_useful_c_ptr!(master_secret, ErrorCode::CommonInvalidParam1);
 
-    let master_secret = unsafe { Box::from_raw(master_secret as *mut MasterSecret); };
+    let master_secret = unsafe { let _ = Box::from_raw(master_secret as *mut MasterSecret); };
     trace!("indy_crypto_cl_master_secret_free: entity: master_secret: {:?}", master_secret);
 
     let res = ErrorCode::Success;
@@ -290,7 +290,7 @@ pub extern fn indy_crypto_cl_blinded_credential_secrets_free(blinded_credential_
 
     check_useful_c_ptr!(blinded_credential_secrets, ErrorCode::CommonInvalidParam1);
 
-    let blinded_credential_secrets = unsafe { Box::from_raw(blinded_credential_secrets as *mut BlindedCredentialSecrets); };
+    let blinded_credential_secrets = unsafe { let _ = Box::from_raw(blinded_credential_secrets as *mut BlindedCredentialSecrets); };
     trace!("indy_crypto_cl_blinded_credential_secrets_free: entity: blinded_credential_secrets: {:?}", blinded_credential_secrets);
 
     let res = ErrorCode::Success;
@@ -377,7 +377,7 @@ pub extern fn indy_crypto_cl_credential_secrets_blinding_factors_free(credential
 
     check_useful_c_ptr!(credential_secrets_blinding_factors, ErrorCode::CommonInvalidParam1);
 
-    let credential_secrets_blinding_factors = unsafe { Box::from_raw(credential_secrets_blinding_factors as *mut CredentialSecretsBlindingFactors); };
+    let credential_secrets_blinding_factors = unsafe { let _ = Box::from_raw(credential_secrets_blinding_factors as *mut CredentialSecretsBlindingFactors); };
     trace!("indy_crypto_cl_credential_secrets_blinding_factors_free: entity: credential_secrets_blinding_factors: {:?}", credential_secrets_blinding_factors);
 
     let res = ErrorCode::Success;
@@ -471,7 +471,7 @@ pub extern fn indy_crypto_cl_blinded_credential_secrets_correctness_proof_free(b
 
     check_useful_c_ptr!(blinded_credential_secrets_correctness_proof, ErrorCode::CommonInvalidParam1);
 
-    let blinded_credential_secrets_correctness_proof = unsafe { Box::from_raw(blinded_credential_secrets_correctness_proof as *mut BlindedCredentialSecretsCorrectnessProof); };
+    let blinded_credential_secrets_correctness_proof = unsafe { let _ = Box::from_raw(blinded_credential_secrets_correctness_proof as *mut BlindedCredentialSecretsCorrectnessProof); };
     trace!("indy_crypto_cl_blinded_credential_secrets_correctness_proof_free: entity: blinded_credential_secrets_correctness_proof: {:?}", blinded_credential_secrets_correctness_proof);
 
     let res = ErrorCode::Success;
@@ -819,7 +819,7 @@ pub extern fn indy_crypto_cl_proof_free(proof: *const c_void) -> ErrorCode {
 
     check_useful_c_ptr!(proof, ErrorCode::CommonInvalidParam1);
 
-    let proof = unsafe { Box::from_raw(proof as *mut Proof); };
+    let proof = unsafe { let _ = Box::from_raw(proof as *mut Proof); };
     trace!("indy_crypto_cl_proof_free: entity: proof: {:?}", proof);
 
     let res = ErrorCode::Success;
@@ -834,9 +834,9 @@ mod tests {
     use super::*;
 
     use std::ptr;
-    use ffi::cl::mocks::*;
-    use ffi::cl::issuer::mocks::*;
-    use ffi::cl::prover::mocks::*;
+    use crate::ffi::cl::mocks::*;
+    use crate::ffi::cl::issuer::mocks::*;
+    use crate::ffi::cl::prover::mocks::*;
 
     #[test]
     fn indy_crypto_cl_prover_new_master_secret_works() {
@@ -1453,7 +1453,7 @@ pub mod mocks {
     use super::*;
 
     use std::ptr;
-    use ffi::cl::mocks::*;
+    use crate::ffi::cl::mocks::*;
 
     pub fn _master_secret() -> *const c_void {
         let mut master_secret_p: *const c_void = ptr::null();

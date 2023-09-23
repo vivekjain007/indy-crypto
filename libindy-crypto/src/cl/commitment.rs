@@ -1,5 +1,5 @@
-use bn::{BigNumber, BigNumberContext};
-use errors::IndyCryptoError;
+use crate::bn::{BigNumber, BigNumberContext};
+use crate::errors::IndyCryptoError;
 
 /// Generate a pedersen commitment to a given number
 ///

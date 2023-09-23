@@ -1,8 +1,8 @@
-use wasm_bindgen::prelude::*;
+use crate::wasm_bindgen::prelude::*;
 
-use bls;
-use errors::IndyCryptoError;
-use errors::ToErrorCode;
+use crate::bls;
+use crate::errors::IndyCryptoError;
+use crate::errors::ToErrorCode;
 use serde;
 
 impl From<IndyCryptoError> for JsValue {

@@ -11,9 +11,9 @@ pub mod issuer;
 pub mod prover;
 pub mod verifier;
 
-use bn::BigNumber;
-use errors::IndyCryptoError;
-use pair::*;
+use crate::bn::BigNumber;
+use crate::errors::IndyCryptoError;
+use crate::pair::*;
 
 use std::collections::{HashMap, HashSet, BTreeSet, BTreeMap};
 use std::hash::Hash;
@@ -515,7 +515,7 @@ impl RevocationTailsGenerator {
 }
 
 pub trait RevocationTailsAccessor {
-    fn access_tail(&self, tail_id: u32, accessor: &mut FnMut(&Tail)) -> Result<(), IndyCryptoError>;
+    fn access_tail(&self, tail_id: u32, accessor: &mut dyn FnMut(&Tail)) -> Result<(), IndyCryptoError>;
 }
 
 /// Simple implementation of `RevocationTailsAccessor` that stores all tails as BTreeMap.
@@ -525,7 +525,7 @@ pub struct SimpleTailsAccessor {
 }
 
 impl RevocationTailsAccessor for SimpleTailsAccessor {
-    fn access_tail(&self, tail_id: u32, accessor: &mut FnMut(&Tail)) -> Result<(), IndyCryptoError> {
+    fn access_tail(&self, tail_id: u32, accessor: &mut dyn FnMut(&Tail)) -> Result<(), IndyCryptoError> {
         Ok(accessor(&self.tails[tail_id as usize]))
     }
 }

@@ -2,15 +2,15 @@ extern crate libc;
 
 use self::libc::{c_void, c_char};
 
-use errors::ErrorCode;
+use crate::errors::ErrorCode;
 
 extern crate time;
 extern crate log;
 
-use errors::ToErrorCode;
+use crate::errors::ToErrorCode;
 
-use cl::logger::{EnabledCB, LogCB, FlushCB, IndyCryptoLogger, IndyCryptoDefaultLogger};
-use ffi::ctypes::CTypesUtils;
+use crate::cl::logger::{EnabledCB, LogCB, FlushCB, IndyCryptoLogger, IndyCryptoDefaultLogger};
+use crate::ffi::ctypes::CTypesUtils;
 
 /// Set custom logger implementation.
 ///

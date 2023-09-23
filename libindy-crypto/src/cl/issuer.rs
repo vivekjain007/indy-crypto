@@ -1,11 +1,11 @@
-use bn::BigNumber;
-use cl::*;
-use errors::IndyCryptoError;
-use pair::*;
-use cl::constants::*;
-use cl::helpers::*;
-use cl::commitment::get_pedersen_commitment;
-use cl::hash::get_hash_as_int;
+use crate::bn::BigNumber;
+use crate::cl::*;
+use crate::errors::IndyCryptoError;
+use crate::pair::*;
+use crate::cl::constants::*;
+use crate::cl::helpers::*;
+use crate::cl::commitment::get_pedersen_commitment;
+use crate::cl::hash::get_hash_as_int;
 
 use std::collections::{HashMap, HashSet};
 
@@ -953,7 +953,7 @@ impl Issuer {
                                       issuance_by_default: bool,
                                       rev_reg: &mut RevocationRegistry,
                                       rev_key_priv: &RevocationKeyPrivate,
-                                      rev_tails_accessor: &RevocationTailsAccessor)
+                                      rev_tails_accessor: &dyn RevocationTailsAccessor)
                                       -> Result<(NonRevocationCredentialSignature, Option<RevocationRegistryDelta>), IndyCryptoError> {
         trace!("Issuer::_new_non_revocation_credential: >>> rev_idx: {:?}, cred_context: {:?}, blinded_ms: {:?}, cred_pub_key: {:?}, cred_priv_key: {:?}, \
         max_cred_num: {:?}, issuance_by_default: {:?}, rev_reg: {:?}, rev_key_priv: {:?}",
@@ -1044,8 +1044,8 @@ impl Issuer {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use cl::issuer::{Issuer, mocks};
-    use cl::helpers::MockHelper;
+    use crate::cl::issuer::{Issuer, mocks};
+    use crate::cl::helpers::MockHelper;
     use self::prover::mocks as prover_mocks;
     use self::prover::Prover;
 

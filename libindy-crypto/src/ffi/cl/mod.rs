@@ -1,14 +1,15 @@
-use cl::*;
-use cl::issuer::Issuer;
-use cl::verifier::Verifier;
-use errors::{IndyCryptoError, ToErrorCode};
-use errors::ErrorCode;
-use ffi::ctypes::CTypesUtils;
+use crate::cl::*;
+use crate::cl::issuer::Issuer;
+use crate::cl::verifier::Verifier;
+use crate::errors::{IndyCryptoError, ToErrorCode};
+use crate::errors::ErrorCode;
+use crate::ffi::ctypes::CTypesUtils;
 
 use serde_json;
 use std::ptr;
 use std::os::raw::c_void;
 use libc::c_char;
+
 
 pub mod issuer;
 pub mod prover;
@@ -72,7 +73,7 @@ pub extern fn indy_crypto_cl_tail_free(tail: *const c_void) -> ErrorCode {
 
     check_useful_c_ptr!(tail, ErrorCode::CommonInvalidParam1);
 
-    let tail = unsafe { Box::from_raw(tail as *mut Tail); };
+    let tail = unsafe { let _ = Box::from_raw(tail as *mut Tail); };
     trace!("indy_crypto_cl_tail_free: entity: tail: {:?}", tail);
 
     let res = ErrorCode::Success;
@@ -141,7 +142,7 @@ pub extern fn indy_crypto_cl_witness_free(witness: *const c_void) -> ErrorCode {
 
     check_useful_c_ptr!(witness, ErrorCode::CommonInvalidParam1);
 
-    let witness = unsafe { Box::from_raw(witness as *mut Witness); };
+    let witness = unsafe { let _ = Box::from_raw(witness as *mut Witness); };
     trace!("indy_crypto_cl_witness_free: entity: witness: {:?}", witness);
 
     let res = ErrorCode::Success;
@@ -252,7 +253,7 @@ pub extern fn indy_crypto_cl_credential_schema_free(credential_schema: *const c_
 
     check_useful_c_ptr!(credential_schema, ErrorCode::CommonInvalidParam1);
 
-    let credential_schema = unsafe { Box::from_raw(credential_schema as *mut CredentialSchema); };
+    let credential_schema = unsafe { let _ = Box::from_raw(credential_schema as *mut CredentialSchema); };
     trace!("indy_crypto_cl_credential_schema_free: entity: credential_schema: {:?}", credential_schema);
 
     let res = ErrorCode::Success;
@@ -363,7 +364,7 @@ pub extern fn indy_crypto_cl_non_credential_schema_free(non_credential_schema: *
 
     check_useful_c_ptr!(non_credential_schema, ErrorCode::CommonInvalidParam1);
 
-    let non_credential_schema = unsafe { Box::from_raw(non_credential_schema as *mut NonCredentialSchema); };
+    let non_credential_schema = unsafe { let _ = Box::from_raw(non_credential_schema as *mut NonCredentialSchema); };
     trace!("indy_crypto_cl_non_credential_schema_free: entity: credential_schema: {:?}", non_credential_schema);
 
     let res = ErrorCode::Success;
@@ -537,7 +538,7 @@ pub extern fn indy_crypto_cl_credential_values_free(credential_values: *const c_
 
     check_useful_c_ptr!(credential_values, ErrorCode::CommonInvalidParam1);
 
-    let credential_values = unsafe { Box::from_raw(credential_values as *mut CredentialValues); };
+    let credential_values = unsafe { let _ = Box::from_raw(credential_values as *mut CredentialValues); };
     trace!("indy_crypto_cl_credential_values_free: entity: credential_values: {:?}", credential_values);
 
     let res = ErrorCode::Success;
@@ -682,7 +683,7 @@ pub extern fn indy_crypto_cl_sub_proof_request_free(sub_proof_request: *const c_
 
     check_useful_c_ptr!(sub_proof_request, ErrorCode::CommonInvalidParam1);
 
-    let sub_proof_request = unsafe { Box::from_raw(sub_proof_request as *mut SubProofRequest); };
+    let sub_proof_request = unsafe { let _ = Box::from_raw(sub_proof_request as *mut SubProofRequest); };
     trace!("indy_crypto_cl_sub_proof_request_free: entity: sub_proof_request: {:?}", sub_proof_request);
 
     let res = ErrorCode::Success;
@@ -794,7 +795,7 @@ pub extern fn indy_crypto_cl_nonce_free(nonce: *const c_void) -> ErrorCode {
 
     check_useful_c_ptr!(nonce, ErrorCode::CommonInvalidParam1);
 
-    let nonce = unsafe { Box::from_raw(nonce as *mut Nonce); };
+    let nonce = unsafe { let _ = Box::from_raw(nonce as *mut Nonce); };
     trace!("indy_crypto_cl_nonce_free: entity: nonce: {:?}", nonce);
 
     let res = ErrorCode::Success;
@@ -817,7 +818,7 @@ impl FFITailsAccessor {
 }
 
 impl RevocationTailsAccessor for FFITailsAccessor {
-    fn access_tail(&self, tail_id: u32, accessor: &mut FnMut(&Tail)) -> Result<(), IndyCryptoError> {
+    fn access_tail(&self, tail_id: u32, accessor: &mut dyn FnMut(&Tail)) -> Result<(), IndyCryptoError> {
         let mut tail_p = ptr::null();
 
         let res = (self.take)(self.ctx, tail_id, &mut tail_p);
@@ -848,7 +849,7 @@ mod tests {
 
     use std::ffi::CString;
     use std::ptr;
-    use ffi::cl::mocks::*;
+    use crate::ffi::cl::mocks::*;
 
     #[test]
     fn indy_crypto_cl_credential_schema_builder_new_works() {

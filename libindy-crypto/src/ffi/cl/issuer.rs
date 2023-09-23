@@ -1,9 +1,9 @@
-use cl::issuer::*;
-use cl::*;
-use errors::ToErrorCode;
-use errors::ErrorCode;
-use ffi::cl::{FFITailTake, FFITailPut, FFITailsAccessor};
-use ffi::ctypes::CTypesUtils;
+use crate::cl::issuer::*;
+use crate::cl::*;
+use crate::errors::ToErrorCode;
+use crate::errors::ErrorCode;
+use crate::ffi::cl::{FFITailTake, FFITailPut, FFITailsAccessor};
+use crate::ffi::ctypes::CTypesUtils;
 use libc::c_char;
 
 use serde_json;
@@ -159,7 +159,7 @@ pub extern fn indy_crypto_cl_credential_public_key_free(credential_pub_key: *con
 
     check_useful_c_ptr!(credential_pub_key, ErrorCode::CommonInvalidParam1);
 
-    let credential_pub_key = unsafe { Box::from_raw(credential_pub_key as *mut CredentialPublicKey); };
+    let credential_pub_key = unsafe { let _ = Box::from_raw(credential_pub_key as *mut CredentialPublicKey); };
     trace!("indy_crypto_cl_credential_public_key_free: entity: credential_pub_key: {:?}", credential_pub_key);
 
     let res = ErrorCode::Success;
@@ -244,7 +244,7 @@ pub extern fn indy_crypto_cl_credential_private_key_free(credential_priv_key: *c
 
     check_useful_c_ptr!(credential_priv_key, ErrorCode::CommonInvalidParam1);
 
-    let _credential_priv_key = unsafe { Box::from_raw(credential_priv_key as *mut CredentialPrivateKey); };
+    let _credential_priv_key = unsafe { let _ = Box::from_raw(credential_priv_key as *mut CredentialPrivateKey); };
     trace!("indy_crypto_cl_credential_private_key_free: entity: credential_priv_key: {:?}", secret!(_credential_priv_key));
 
     let res = ErrorCode::Success;
@@ -331,7 +331,7 @@ pub extern fn indy_crypto_cl_credential_key_correctness_proof_free(credential_ke
 
     check_useful_c_ptr!(credential_key_correctness_proof, ErrorCode::CommonInvalidParam1);
 
-    let credential_key_correctness_proof = unsafe { Box::from_raw(credential_key_correctness_proof as *mut CredentialKeyCorrectnessProof); };
+    let credential_key_correctness_proof = unsafe { let _ = Box::from_raw(credential_key_correctness_proof as *mut CredentialKeyCorrectnessProof); };
     trace!("indy_crypto_cl_credential_key_correctness_proof_free: entity: credential_key_correctness_proof: {:?}", credential_key_correctness_proof);
 
     let res = ErrorCode::Success;
@@ -479,7 +479,7 @@ pub extern fn indy_crypto_cl_revocation_key_public_free(rev_key_pub: *const c_vo
     trace!("indy_crypto_cl_revocation_key_public_free: >>> rev_key_pub: {:?}", rev_key_pub);
 
     check_useful_c_ptr!(rev_key_pub, ErrorCode::CommonInvalidParam1);
-    let rev_key_pub = unsafe { Box::from_raw(rev_key_pub as *mut RevocationKeyPublic); };
+    let rev_key_pub = unsafe { let _ = Box::from_raw(rev_key_pub as *mut RevocationKeyPublic); };
     trace!("indy_crypto_cl_revocation_key_public_free: entity: rev_key_pub: {:?}", rev_key_pub);
 
     let res = ErrorCode::Success;
@@ -566,7 +566,7 @@ pub extern fn indy_crypto_cl_revocation_key_private_free(rev_key_priv: *const c_
 
     check_useful_c_ptr!(rev_key_priv, ErrorCode::CommonInvalidParam1);
 
-    let _rev_key_priv = unsafe { Box::from_raw(rev_key_priv as *mut RevocationKeyPrivate); };
+    let _rev_key_priv = unsafe { let _ = Box::from_raw(rev_key_priv as *mut RevocationKeyPrivate); };
     trace!("indy_crypto_cl_revocation_key_private_free: entity: rev_key_priv: {:?}", secret!(_rev_key_priv));
 
     let res = ErrorCode::Success;
@@ -653,7 +653,7 @@ pub extern fn indy_crypto_cl_revocation_registry_free(rev_reg: *const c_void) ->
 
     check_useful_c_ptr!(rev_reg, ErrorCode::CommonInvalidParam1);
 
-    let rev_reg = unsafe { Box::from_raw(rev_reg as *mut RevocationRegistry); };
+    let rev_reg = unsafe { let _ = Box::from_raw(rev_reg as *mut RevocationRegistry); };
     trace!("indy_crypto_cl_revocation_registry_free: entity: rev_reg: {:?}", rev_reg);
 
     let res = ErrorCode::Success;
@@ -740,7 +740,7 @@ pub extern fn indy_crypto_cl_revocation_tails_generator_free(rev_tails_generator
 
     check_useful_c_ptr!(rev_tails_generator, ErrorCode::CommonInvalidParam1);
 
-    let rev_tails_generator = unsafe { Box::from_raw(rev_tails_generator as *mut RevocationTailsGenerator); };
+    let rev_tails_generator = unsafe { let _ = Box::from_raw(rev_tails_generator as *mut RevocationTailsGenerator); };
     trace!("indy_crypto_cl_revocation_tails_generator_free: entity: rev_tails_generator: {:?}", rev_tails_generator);
 
     let res = ErrorCode::Success;
@@ -1014,7 +1014,7 @@ pub extern fn indy_crypto_cl_credential_signature_free(credential_signature: *co
 
     check_useful_c_ptr!(credential_signature, ErrorCode::CommonInvalidParam1);
 
-    let _credential_signature = unsafe { Box::from_raw(credential_signature as *mut CredentialSignature); };
+    let _credential_signature = unsafe { let _ = Box::from_raw(credential_signature as *mut CredentialSignature); };
     trace!("indy_crypto_cl_credential_signature_free: entity: credential_signature: {:?}", secret!(_credential_signature));
     let res = ErrorCode::Success;
 
@@ -1100,7 +1100,7 @@ pub extern fn indy_crypto_cl_signature_correctness_proof_free(signature_correctn
 
     check_useful_c_ptr!(signature_correctness_proof, ErrorCode::CommonInvalidParam1);
 
-    let signature_correctness_proof = unsafe { Box::from_raw(signature_correctness_proof as *mut SignatureCorrectnessProof); };
+    let signature_correctness_proof = unsafe { let _ = Box::from_raw(signature_correctness_proof as *mut SignatureCorrectnessProof); };
     trace!("indy_crypto_cl_signature_correctness_proof_free: entity: signature_correctness_proof: {:?}", signature_correctness_proof);
     let res = ErrorCode::Success;
 
@@ -1186,7 +1186,7 @@ pub extern fn indy_crypto_cl_revocation_registry_delta_free(revocation_registry_
 
     check_useful_c_ptr!(revocation_registry_delta, ErrorCode::CommonInvalidParam1);
 
-    let revocation_registry_delta = unsafe { Box::from_raw(revocation_registry_delta as *mut RevocationRegistryDelta); };
+    let revocation_registry_delta = unsafe { let _ = Box::from_raw(revocation_registry_delta as *mut RevocationRegistryDelta); };
     trace!("indy_crypto_cl_revocation_registry_delta_free: entity: revocation_registry_delta: {:?}", revocation_registry_delta);
     let res = ErrorCode::Success;
 
@@ -1338,9 +1338,9 @@ mod tests {
     use super::*;
 
     use std::ptr;
-    use ffi::cl::mocks::*;
-    use ffi::cl::issuer::mocks::*;
-    use ffi::cl::prover::mocks::*;
+    use crate::ffi::cl::mocks::*;
+    use crate::ffi::cl::issuer::mocks::*;
+    use crate::ffi::cl::prover::mocks::*;
 
     #[test]
     fn indy_crypto_cl_issuer_new_credential_def_works() {
@@ -2017,7 +2017,7 @@ pub mod mocks {
 
     use std::ffi::CString;
     use std::ptr;
-    use ffi::cl::mocks::*;
+    use crate::ffi::cl::mocks::*;
 
     pub fn _credential_def() -> (*const c_void, *const c_void, *const c_void) {
         let credential_schema = _credential_schema();

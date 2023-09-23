@@ -1,4 +1,4 @@
-use errors::IndyCryptoError;
+use crate::errors::IndyCryptoError;
 
 use int_traits::IntTraits;
 
@@ -12,7 +12,6 @@ use serde::ser::{Serialize, Serializer, Error as SError};
 #[cfg(feature = "serialization")]
 use serde::de::{Deserialize, Deserializer, Visitor, Error as DError};
 
-use std::error::Error;
 use std::fmt;
 use std::cmp::Ord;
 use std::cmp::Ordering;
@@ -471,7 +470,7 @@ impl<'a> Deserialize<'a> for BigNumber {
 impl From<ErrorStack> for IndyCryptoError {
     fn from(err: ErrorStack) -> IndyCryptoError {
         // TODO: FIXME: Analyze ErrorStack and split invalid structure errors from other errors
-        IndyCryptoError::InvalidStructure(err.description().to_string())
+        IndyCryptoError::InvalidStructure(err.to_string())
     }
 }
 

@@ -6,9 +6,9 @@ use self::env_logger::Builder;
 use self::log::LevelFilter;
 use std::env;
 use std::io::Write;
-use log::{Record, Metadata};
+use crate::log::{Record, Metadata};
 
-use errors::IndyCryptoError;
+use crate::errors::IndyCryptoError;
 
 use self::libc::{c_void, c_char};
 use std::ffi::CString;

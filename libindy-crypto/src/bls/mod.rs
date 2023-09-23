@@ -1,8 +1,8 @@
-use errors::IndyCryptoError;
-use pair::{GroupOrderElement, PointG2, PointG1, Pair};
+use crate::errors::IndyCryptoError;
+use crate::pair::{GroupOrderElement, PointG2, PointG1, Pair};
 
-use sha2::{Sha256, Digest};
-use sha3::Keccak256;
+use crate::sha2::{Sha256, Digest};
+use crate::sha3::Keccak256;
 
 /// BLS generator point.
 /// BLS algorithm requires choosing of generator point that must be known to all parties.

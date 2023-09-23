@@ -1,7 +1,7 @@
-use bn::{BigNumber, BIGNUMBER_1};
-use cl::*;
-use errors::IndyCryptoError;
-use pair::GroupOrderElement;
+use crate::bn::{BigNumber, BIGNUMBER_1};
+use crate::cl::*;
+use crate::errors::IndyCryptoError;
+use crate::pair::GroupOrderElement;
 use super::constants::*;
 
 use std::cmp::max;
@@ -552,7 +552,7 @@ pub fn create_tau_list_values(r_pub_key: &CredentialRevocationPublicKey,
 #[cfg(test)]
 mod tests {
     use super::*;
-    use cl::{issuer, prover};
+    use crate::cl::{issuer, prover};
 
     #[test]
     fn encode_attribute_works() {

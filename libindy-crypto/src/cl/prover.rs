@@ -1,11 +1,11 @@
-use bn::BigNumber;
-use cl::*;
-use cl::constants::*;
-use errors::IndyCryptoError;
-use pair::*;
+use crate::bn::BigNumber;
+use crate::cl::*;
+use crate::cl::constants::*;
+use crate::errors::IndyCryptoError;
+use crate::pair::*;
 use super::helpers::*;
-use cl::commitment::get_pedersen_commitment;
-use cl::hash::get_hash_as_int;
+use crate::cl::commitment::get_pedersen_commitment;
+use crate::cl::hash::get_hash_as_int;
 
 use std::collections::{HashSet, BTreeMap, BTreeSet};
 
@@ -1585,7 +1585,7 @@ impl ProofBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use cl::issuer;
+    use crate::cl::issuer;
     use serde_json;
 
     #[test]

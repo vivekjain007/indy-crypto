@@ -140,7 +140,7 @@ impl Error for IndyCryptoError {
         }
     }
 
-    fn cause(&self) -> Option<&Error> {
+    fn cause(&self) -> Option<&dyn Error> {
         match *self {
             IndyCryptoError::InvalidParam1(_) |
             IndyCryptoError::InvalidParam2(_) |

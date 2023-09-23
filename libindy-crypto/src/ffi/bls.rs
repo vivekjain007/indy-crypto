@@ -1,7 +1,7 @@
-use bls::*;
+use crate::bls::*;
 
-use errors::ErrorCode;
-use errors::ToErrorCode;
+use crate::errors::ErrorCode;
+use crate::errors::ToErrorCode;
 use std::os::raw::c_void;
 use std::slice;
 
@@ -111,7 +111,7 @@ pub extern fn indy_crypto_bls_generator_free(gen: *const c_void) -> ErrorCode {
 
     check_useful_c_ptr!(gen, ErrorCode::CommonInvalidParam1);
 
-    unsafe { Box::from_raw(gen as *mut Generator); }
+    unsafe { let _ = Box::from_raw(gen as *mut Generator); }
     let res = ErrorCode::Success;
 
     trace!("indy_crypto_bls_generator_free: <<< res: {:?}", res);
@@ -228,7 +228,7 @@ pub extern fn indy_crypto_bls_sign_key_free(sign_key: *const c_void) -> ErrorCod
 
     trace!("indy_crypto_bls_sign_key_free: >>> sign_key: {:?}", secret!(sign_key));
 
-    unsafe { Box::from_raw(sign_key as *mut SignKey); }
+    unsafe { let _ = Box::from_raw(sign_key as *mut SignKey); }
     let res = ErrorCode::Success;
 
     trace!("indy_crypto_bls_sign_key_free: <<< res: {:?}", res);
@@ -345,7 +345,7 @@ pub extern fn indy_crypto_bls_ver_key_free(ver_key: *const c_void) -> ErrorCode 
 
     trace!("indy_crypto_bls_ver_key_free: >>> ver_key: {:?}", ver_key);
 
-    unsafe { Box::from_raw(ver_key as *mut VerKey); }
+    unsafe { let _ = Box::from_raw(ver_key as *mut VerKey); }
     let res = ErrorCode::Success;
 
     trace!("indy_crypto_bls_ver_key_free: <<< res: {:?}", res);
@@ -462,7 +462,7 @@ pub extern fn indy_crypto_bls_pop_free(pop: *const c_void) -> ErrorCode {
 
     trace!("indy_crypto_bls_pop_free: >>> pop: {:?}", pop);
 
-    unsafe { Box::from_raw(pop as *mut ProofOfPossession); }
+    unsafe { let _ = Box::from_raw(pop as *mut ProofOfPossession); }
     let res = ErrorCode::Success;
 
     trace!("indy_crypto_bls_pop_free: <<< res: {:?}", res);
@@ -544,7 +544,7 @@ pub extern fn indy_crypto_bls_signature_free(signature: *const c_void) -> ErrorC
 
     trace!("indy_crypto_bls_signature_free: >>> signature: {:?}", signature);
 
-    unsafe { Box::from_raw(signature as *mut Signature); }
+    unsafe { let _ = Box::from_raw(signature as *mut Signature); }
     let res = ErrorCode::Success;
 
     trace!("indy_crypto_bls_signature_free: <<< res: {:?}", res);
@@ -662,7 +662,7 @@ pub extern fn indy_crypto_bls_multi_signature_free(multi_sig: *const c_void) -> 
 
     trace!("indy_crypto_bls_multi_signature_free: >>> multi_sig: {:?}", multi_sig);
 
-    unsafe { Box::from_raw(multi_sig as *mut MultiSignature); }
+    unsafe { let _ = Box::from_raw(multi_sig as *mut MultiSignature); }
     let res = ErrorCode::Success;
 
     trace!("indy_crypto_bls_multi_signature_free: <<< res: {:?}", res);

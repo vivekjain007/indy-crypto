@@ -3,20 +3,21 @@ extern crate serde_derive;
 extern crate serde_json;
 extern crate indy_crypto;
 
-use indy_crypto::cl::{new_nonce, Witness, RevocationRegistry, RevocationRegistryDelta, SimpleTailsAccessor};
-use indy_crypto::cl::issuer::Issuer;
-use indy_crypto::cl::prover::Prover;
-use indy_crypto::cl::verifier::Verifier;
-use indy_crypto::pair::PointG2;
+use crate::indy_crypto::cl::{new_nonce, Witness, RevocationRegistry, RevocationRegistryDelta, SimpleTailsAccessor};
+use crate::indy_crypto::cl::issuer::Issuer;
+use crate::indy_crypto::cl::prover::Prover;
+use crate::indy_crypto::cl::verifier::Verifier;
+use crate::indy_crypto::pair::PointG2;
 use self::indy_crypto::cl::logger::IndyCryptoDefaultLogger;
 use std::collections::HashSet;
+
 
 pub const PROVER_ID: &'static str = "CnEDk9HrMnmiHXEV1WFgbVCRteYnPqsJwrTdcZaNhFVW";
 
 mod test {
     use super::*;
-    use indy_crypto::errors::ErrorCode;
-    use indy_crypto::errors::ToErrorCode;
+    use crate::indy_crypto::errors::ErrorCode;
+    use crate::indy_crypto::errors::ToErrorCode;
 
     #[test]
     fn anoncreds_demo() {
@@ -3234,7 +3235,7 @@ mod test {
 
 mod helpers {
     use super::*;
-    use indy_crypto::cl::*;
+    use crate::indy_crypto::cl::*;
 
     pub fn gvt_credential_schema() -> CredentialSchema {
         let mut credential_schema_builder = Issuer::new_credential_schema_builder().unwrap();
